@@ -1,0 +1,20 @@
+{
+  "name": "Rapid",
+  "version": "0.1",
+  "manifest_version": 2,
+  "short_name": "TODO",
+  "description": "TODO",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#28282e",
+  "theme_color": "#28282e",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "./assets/logo.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "scope": "/"
+}

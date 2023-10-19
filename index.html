@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Rapid</title>
+
+    <meta name="description" content="TODO" />
+    <link rel="canonical" href="TODO" />
+    <meta name="theme-color" content="#000" />
+    <meta name="robots" content="index, follow" />
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="512x512"
+      href="./assets/logo.png"
+    />
+    <link rel="icon" type="image/x-icon" href="./assets/favicon.ico" />
+
+    <meta property="og:image" content="./assets/social_preview.png" />
+    <meta property="og:title" content="TODO" />
+    <meta property="og:site_name" content="TODO" />
+    <meta property="og:url" content="TODO" />
+    <meta property="og:description" content="TODO" />
+    <meta property="og:type" content="product" />
+
+    <link rel="manifest" href="./manifest.json" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"
+    />
+    <link rel="stylesheet" href="https://cdn.toolbomber.com/css/tw.css" />
+
+    <script src="https://unpkg.com/alpinejs" defer></script>
+    <script src="https://cdn.toolbomber.com/js/WebArray.min.js" defer></script>
+    <script src="./app.js"></script>
+    <script src="/_vercel/insights/script.js" defer></script>
+  </head>
+  <body>
+    <div x-data="$store.app" class="page bg-dark-100 c">
+      <div class="w-full min-h-screen max-w-3xl bg-dark-200 c fc">
+        <div
+          id="response-field"
+          class="p4 text-white text-opacity-90 bg-white bg-opacity-10 tw-text-md px-16 py-4 text-sm"
+        ></div>
+        <div class="controls f mt-4 w-full">
+          <input id="input-field" type="text" class="p-2 w-full" />
+          <div
+            placeholder="Prompt"
+            class="bg-yellow-300 c-p select-none flex-shrink-0 p-2"
+            @click="handleSend()"
+          >
+            Send
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
