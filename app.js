@@ -2,6 +2,7 @@ document.addEventListener("alpine:init", () => {
   Alpine.store("app", {
     responseField: document.querySelector("#response-field"),
     inputField: document.querySelector("#input-field"),
+    history: [],
     initialize() {
       document.addEventListener("keydown", this.logOnEnterPress.bind(this))
     },
@@ -14,8 +15,12 @@ document.addEventListener("alpine:init", () => {
     async handleSend() {
       const input = this.inputField.value
       this.inputField.value = ""
+      const message = { sender: "user", text: input }
+      this.history.push(message)
+
       const response = await ollama.respondInChunks(input)
-      this.responseField.innerText = response
+      const reply = { sender: "system", text: response }
+      this.history.push(reply)
     },
   })
 
