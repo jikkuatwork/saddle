@@ -6,6 +6,10 @@ document.addEventListener("alpine:init", () => {
     initialize() {
       document.addEventListener("keydown", this.logOnEnterPress.bind(this))
     },
+    scrollToBottom() {
+      const historyContainer = document.querySelector("#history")
+      historyContainer.scrollTop = historyContainer.scrollHeight
+    },
     logOnEnterPress(event) {
       if (event.key === "Enter") {
         console.log("enter")
@@ -21,6 +25,8 @@ document.addEventListener("alpine:init", () => {
       const response = await ollama.respondInChunks(input)
       const reply = { sender: "system", text: response }
       this.history.push(reply)
+
+      // this.scrollToBottom()
     },
   })
 

@@ -51,10 +51,14 @@
         <div class="w-full fc flex-grow">
           <div
             id="history"
-            class="flex-grow bg-blue-100x flex flex-col flex-col justify-end px-4"
+            class="flex-grow bg-blue-100x flex flex-col flex-col px-4 items-start overflow-y-scroll h-96"
           >
             <template x-for="(message, index) in history" :key="index">
-              <div x-html="ResponseBubble(message)"></div>
+              <div
+                :class="{ 'self-end': message.sender === 'user' }"
+                x-html="ResponseBubble(message)"
+                x-effect="scrollToBottom()"
+              ></div>
             </template>
           </div>
           <div class="controls f w-full px-4">
