@@ -35,6 +35,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"
     />
     <link rel="stylesheet" href="https://cdn.toolbomber.com/css/tw.css" />
+    <link rel="stylesheet" href="./assets/custom.css" />
 
     <script src="https://unpkg.com/alpinejs" defer></script>
     <script src="https://cdn.toolbomber.com/js/WebArray.min.js" defer></script>
@@ -51,7 +52,7 @@
         <div class="w-full fc flex-grow">
           <div
             id="history"
-            class="flex-grow bg-blue-100x flex flex-col flex-col px-4 items-start overflow-y-scroll h-96"
+            class="flex-grow bg-blue-100x flex flex-col flex-col px-4 items-start overflow-y-scroll h-96 tw-scrollbar"
           >
             <template x-for="(message, index) in history" :key="index">
               <div
