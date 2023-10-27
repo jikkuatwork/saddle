@@ -1,5 +1,6 @@
 document.addEventListener("alpine:init", () => {
   Alpine.store("app", {
+    historyContainer: document.querySelector("#history"),
     responseField: document.querySelector("#response-field"),
     inputField: document.querySelector("#input-field"),
     history: [],
@@ -11,8 +12,7 @@ document.addEventListener("alpine:init", () => {
       })
     },
     scrollToBottom() {
-      const historyContainer = document.querySelector("#history")
-      historyContainer.scrollTop = historyContainer.scrollHeight
+      this.historyContainer.scrollTop = this.historyContainer.scrollHeight
     },
     async handleSend() {
       const input = this.inputField.value
@@ -26,9 +26,11 @@ document.addEventListener("alpine:init", () => {
 
       saddle.streamer(input, response => {
         this.history[this.history.length - 1].text = response
+        this.scrollToBottom()
       })
     },
   })
 
-  Alpine.store("app").initialize()
+  window.app = Alpine.store("app")
+  app.initialize()
 })

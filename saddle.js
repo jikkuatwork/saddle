@@ -40,7 +40,6 @@ window.saddle = {
   },
   send(prompt, signal = null) {
     const data = { model: this.model, context: this.context, prompt: prompt }
-    console.log(data)
 
     return fetch(this.api(), {
       method: "POST",
@@ -53,28 +52,20 @@ window.saddle = {
   },
   async handleStream(response, callback) {
     const reader = response.body.getReader()
-    let partialLine = ""
 
     while (true) {
       const { done, value } = await reader.read()
-      if (done) {
-        break
-      }
+      if (done) break
 
       const textChunk = new TextDecoder().decode(value)
-      const lines = (partialLine + textChunk).split("\n")
-      partialLine = lines.pop()
+      console.log("textChunk", textChunk)
+      const lines = textChunk.split("\n")
 
       for (const line of lines) {
         if (line.trim() === "") continue
         const parsedResponse = JSON.parse(line)
         callback(parsedResponse)
       }
-    }
-
-    if (partialLine.trim() !== "") {
-      const parsedResponse = JSON.parse(partialLine)
-      callback(parsedResponse)
     }
   },
 }
