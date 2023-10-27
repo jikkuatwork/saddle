@@ -40,6 +40,7 @@ window.saddle = {
   },
   send(prompt, signal = null) {
     const data = { model: this.model, context: this.context, prompt: prompt }
+    console.log(data)
 
     return fetch(this.api(), {
       method: "POST",

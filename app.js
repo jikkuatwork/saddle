@@ -4,7 +4,11 @@ document.addEventListener("alpine:init", () => {
     inputField: document.querySelector("#input-field"),
     history: [],
     initialize() {
-      //
+      this.inputField.addEventListener("keydown", event => {
+        if (event.keyCode === 13 && this.inputField.value.trim() !== "") {
+          this.handleSend()
+        }
+      })
     },
     scrollToBottom() {
       const historyContainer = document.querySelector("#history")
@@ -17,10 +21,14 @@ document.addEventListener("alpine:init", () => {
       const message = { sender: "user", text: input }
       this.history.push(message)
 
-      const response = await ollama.respondInChunks(input)
-      const reply = { sender: "system", text: response }
-
+      const reply = { sender: "system", text: "" }
       this.history.push(reply)
+
+      saddle.streamer(input, response => {
+        this.history[this.history.length - 1].text = response
+      })
     },
   })
+
+  Alpine.store("app").initialize()
 })
