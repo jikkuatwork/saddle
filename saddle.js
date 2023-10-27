@@ -15,8 +15,8 @@ window.saddle = {
           contextCallback(this.context)
         } else {
           this.stream += fragment.response
-          this.stream = DOMPurify.sanitize(marked.parse(this.stream))
-          cummilatorCallback(this.stream)
+          const formattedText = DOMPurify.sanitize(marked.parse(this.stream))
+          cummilatorCallback(formattedText)
         }
       })
     )
@@ -50,22 +50,21 @@ window.saddle = {
       signal: signal,
     })
   },
-  async handleStream(response, callback) {
-    const reader = response.body.getReader()
+  async handleStream(stream, callback) {
+    const reader = stream.body.getReader()
 
     while (true) {
       const { done, value } = await reader.read()
       if (done) break
 
-      const textChunk = new TextDecoder().decode(value)
-      console.log("textChunk", textChunk)
-      const lines = textChunk.split("\n")
+      const text = new TextDecoder().decode(value)
 
-      for (const line of lines) {
-        if (line.trim() === "") continue
-        const parsedResponse = JSON.parse(line)
-        callback(parsedResponse)
-      }
+      text.split("\n").forEach(t => {
+        if (t.trim() !== "") {
+          const parsed = JSON.parse(t)
+          callback(parsed)
+        }
+      })
     }
   },
 }
