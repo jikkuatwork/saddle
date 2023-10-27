@@ -38,11 +38,19 @@
     <link rel="stylesheet" href="./assets/custom.css" />
 
     <script src="https://unpkg.com/alpinejs" defer></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"
+      defer
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.2/marked.min.js"
+      defer
+    ></script>
     <script src="https://cdn.toolbomber.com/js/WebArray.min.js" defer></script>
     <script src="./ollama.js"></script>
     <script src="./_components/ResponseBubble.js"></script>
+    <script src="./saddle.js"></script>
     <script src="./app.js"></script>
-    <script src="/_vercel/insights/script.js" defer></script>
   </head>
   <body>
     <div x-data="$store.app" class="page bg-dark-100 c">

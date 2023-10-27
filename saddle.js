@@ -1,10 +1,29 @@
 window.saddle = {
   model: "zephyr:latest",
+  port: "11434",
+  api() {
+    return `http://localhost:${this.port}/api/generate`
+  },
   context: null,
   stream: "",
+  async streamer(prompt, cummilatorCallback, contextCallback = () => null) {
+    this.stream = ""
+    await this.send(prompt).then(r =>
+      this.handleStream(r, fragment => {
+        if (fragment.done) {
+          this.context = fragment.context
+          contextCallback(this.context)
+        } else {
+          this.stream += fragment.response
+          this.stream = DOMPurify.sanitize(marked.parse(this.stream))
+          cummilatorCallback(this.stream)
+        }
+      })
+    )
+  },
   async run(prompt) {
     this.stream = ""
-    await this.postRequest(prompt).then(r =>
+    await this.send(prompt).then(r =>
       this.handleStream(r, f => this.processFragment(f))
     )
 
@@ -19,12 +38,10 @@ window.saddle = {
       return this.stream
     }
   },
-  postRequest(prompt, signal = null) {
+  send(prompt, signal = null) {
     const data = { model: this.model, context: this.context, prompt: prompt }
-    const ollama_host = "localhost"
-    const URL = `http://${ollama_host}:11434/api/generate`
 
-    return fetch(URL, {
+    return fetch(this.api(), {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
