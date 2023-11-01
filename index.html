@@ -51,7 +51,7 @@
     ></script>
     <script src="https://cdn.toolbomber.com/js/WebArray.min.js" defer></script>
     <script src="./_components/ResponseBubble.js"></script>
-    <script src="./saddle.js"></script>
+    <script src="./Saddle.js"></script>
     <script src="./app.js"></script>
   </head>
   <body>
@@ -66,7 +66,7 @@
           >
             <template x-for="(message, index) in history" :key="index">
               <div
-                :class="{ 'self-end': message.sender === 'user' }"
+                :class="{ 'self-end': message.role === 'user' }"
                 x-html="ResponseBubble(message)"
                 x-effect="scrollToBottom()"
               ></div>

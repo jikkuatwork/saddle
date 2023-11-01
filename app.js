@@ -1,5 +1,6 @@
 document.addEventListener("alpine:init", () => {
   Alpine.store("app", {
+    saddle: new Saddle({ service: "ollama", model: "zephyr:latest" }),
     historyContainer: document.querySelector("#history"),
     responseField: document.querySelector("#response-field"),
     inputField: document.querySelector("#input-field"),
@@ -18,14 +19,14 @@ document.addEventListener("alpine:init", () => {
       const input = this.inputField.value
       this.inputField.value = ""
 
-      const message = { sender: "user", text: input }
+      const message = { role: "user", content: input }
       this.history.push(message)
 
-      const reply = { sender: "system", text: "" }
+      const reply = { role: "system", content: "" }
       this.history.push(reply)
 
-      saddle.streamer(input, response => {
-        this.history[this.history.length - 1].text = response
+      this.saddle.streamer(input, response => {
+        this.history[this.history.length - 1].content = response
         this.scrollToBottom()
       })
     },

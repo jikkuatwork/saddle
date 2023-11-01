@@ -1,11 +1,19 @@
-window.saddle = {
-  model: "zephyr:latest",
-  port: "11434",
+class Saddle {
+  constructor(config) {
+    this.service = config.service || "ollama"
+    this.model = config.model || "zephyr:latest"
+    this.port = config.port || "11434"
+    this.temperature = config.temperature || 0.5
+    this.maxTokens = config.maxTokens || 6000
+    this.sendMemory = config.sendMemory || true
+    this.context = null
+    this.stream = ""
+  }
+
   api() {
     return `http://localhost:${this.port}/api/generate`
-  },
-  context: null,
-  stream: "",
+  }
+
   async streamer(prompt, cummilatorCallback, contextCallback = () => null) {
     this.stream = ""
     await this.send(prompt).then(r =>
@@ -20,7 +28,8 @@ window.saddle = {
         }
       })
     )
-  },
+  }
+
   async run(prompt) {
     this.stream = ""
     await this.send(prompt).then(r =>
@@ -28,7 +37,8 @@ window.saddle = {
     )
 
     return this.stream
-  },
+  }
+
   processFragment(fragment) {
     if (fragment.done) {
       this.context = fragment.context
@@ -37,9 +47,17 @@ window.saddle = {
       this.stream = DOMPurify.sanitize(marked.parse(this.stream))
       return this.stream
     }
-  },
+  }
+
   send(prompt, signal = null) {
-    const data = { model: this.model, context: this.context, prompt: prompt }
+    const data = {
+      model: this.model,
+      context: this.context,
+      prompt: prompt,
+      temperature: this.temperature,
+      max_tokens: this.maxTokens,
+      send_memory: this.sendMemory,
+    }
 
     return fetch(this.api(), {
       method: "POST",
@@ -49,7 +67,8 @@ window.saddle = {
       body: JSON.stringify(data),
       signal: signal,
     })
-  },
+  }
+
   async handleStream(stream, callback) {
     const reader = stream.body.getReader()
 
@@ -66,5 +85,7 @@ window.saddle = {
         }
       })
     }
-  },
+  }
 }
+
+window.Saddle = Saddle
