@@ -1,6 +1,7 @@
 document.addEventListener("alpine:init", () => {
   Alpine.store("app", {
     saddle: new Saddle({ service: "ollama", model: "zephyr:latest" }),
+    isSettingsVisible: false,
     historyContainer: document.querySelector("#history"),
     responseField: document.querySelector("#response-field"),
     inputField: document.querySelector("#input-field"),

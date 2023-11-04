@@ -72,18 +72,36 @@
               ></div>
             </template>
           </div>
-          <div class="controls f w-full px-4">
-            <input
-              id="input-field"
-              type="text"
-              placeholder="Prompt"
-              class="p-2 px-4 w-full ring-0 border-none focus:ring-0 focus:outline-none"
-            />
-            <div
-              class="bg-yellow-300 c-p select-none flex-shrink-0 p-2"
-              @click="handleSend()"
-            >
-              Send
+          <div class="controls flex flex-col">
+            <div class="f w-full px-4">
+              <input
+                id="input-field"
+                type="text"
+                placeholder="Prompt"
+                class="p-2 px-4 w-full ring-0 border-none focus:ring-0 focus:outline-none"
+              />
+              <div
+                class="bg-yellow-300 c-p select-none flex-shrink-0 p-2"
+                @click="handleSend()"
+              >
+                Send
+              </div>
+            </div>
+            <div class="settings p-1 px-4 text-xs">
+              <div
+                class="c flex flex-col text-white text-opacity-70 hover:text-opacity-90 t c-p"
+              >
+                <div
+                  class="title py-2"
+                  @click="isSettingsVisible = !isSettingsVisible"
+                >
+                  Settings
+                </div>
+                <div
+                  x-show="isSettingsVisible"
+                  class="bg-yellow-300 bg-opacity-30 w-full h-48 rounded-lg"
+                ></div>
+              </div>
             </div>
           </div>
         </div>
