@@ -72,8 +72,8 @@
               ></div>
             </template>
           </div>
-          <div class="controls flex flex-col">
-            <div class="f w-full px-4">
+          <div class="controls flex flex-col px-4">
+            <div class="f w-full bg-red-500 rounded overflow-hidden">
               <input
                 id="input-field"
                 type="text"
@@ -87,20 +87,43 @@
                 Send
               </div>
             </div>
-            <div class="settings p-1 px-4 text-xs">
+            <div class="settings py-1 text-xs">
               <div
                 class="c flex flex-col text-white text-opacity-70 hover:text-opacity-90 t c-p"
               >
                 <div
                   class="title py-2"
                   @click="isSettingsVisible = !isSettingsVisible"
+                  x-text="isSettingsVisible ? 'Close' : 'Settings'"
                 >
                   Settings
                 </div>
                 <div
                   x-show="isSettingsVisible"
-                  class="bg-yellow-300 bg-opacity-30 w-full h-48 rounded-lg"
-                ></div>
+                  class="bg-white text-base bg-opacity-10 w-full rounded-lg overflow-hidden"
+                >
+                  <div
+                    class="px-4 py-2 f justify-between border-b border-opacity-20"
+                  >
+                    <div class="label py-2 f c">Model</div>
+                    <div class="text-xs p-2">
+                      <select
+                        class="p-2 rounded bg-transparent"
+                        id="dropdown-model"
+                        x-model="selectedModel"
+                        x-on:change="changeModel(event)"
+                      >
+                        <template x-for="(model, index) in models" :key="index">
+                          <option
+                            x-text="model.label"
+                            class="p-2 text-black"
+                            :value="model.id"
+                          ></option>
+                        </template>
+                      </select>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

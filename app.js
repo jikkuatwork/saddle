@@ -1,5 +1,10 @@
 document.addEventListener("alpine:init", () => {
   Alpine.store("app", {
+    selectedModel: "zephyr:latest",
+    models: [
+      { label: "Yarn Mistral", id: "yarn-mistral:latest" },
+      { label: "Zephyr", id: "zephyr:latest" },
+    ],
     saddle: new Saddle({ service: "ollama", model: "zephyr:latest" }),
     isSettingsVisible: false,
     historyContainer: document.querySelector("#history"),
@@ -15,6 +20,10 @@ document.addEventListener("alpine:init", () => {
     },
     scrollToBottom() {
       this.historyContainer.scrollTop = this.historyContainer.scrollHeight
+    },
+    changeModel() {
+      console.log(this.selectedModel)
+      this.saddle = new Saddle({ service: "ollama", model: this.selectedModel })
     },
     async handleSend() {
       const input = this.inputField.value
