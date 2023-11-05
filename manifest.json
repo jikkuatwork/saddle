@@ -1,9 +1,9 @@
 {
-  "name": "Rapid",
+  "name": "Saddle",
   "version": "0.1",
   "manifest_version": 2,
-  "short_name": "TODO",
-  "description": "TODO",
+  "short_name": "Saddle",
+  "description": "Ride the Llamas in Style",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#28282e",
