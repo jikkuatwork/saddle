@@ -1,6 +1,7 @@
 # Saddle
 
-Saddle is a simple client for Ollama.
+Saddle is a simple client for Ollama. No npm, nothing to install. Just start a
+server and it works.
 
 ## Todo
 
