@@ -10,8 +10,8 @@ class Saddle {
     this.stream = ""
   }
 
-  api() {
-    return `http://localhost:${this.port}/api/generate`
+  api(action = "generate") {
+    return `http://localhost:${this.port}/api/${action}`
   }
 
   async streamer(prompt, cummilatorCallback, contextCallback = () => null) {
@@ -47,6 +47,19 @@ class Saddle {
       this.stream = DOMPurify.sanitize(marked.parse(this.stream))
       return this.stream
     }
+  }
+
+  async list() {
+    return (
+      await fetch(this.api("tags"), {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then(r => r.json())
+        .then(j => j["models"])
+    ).map(i => i["name"])
   }
 
   send(prompt, signal = null) {

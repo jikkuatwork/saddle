@@ -115,9 +115,9 @@
                       >
                         <template x-for="(model, index) in models" :key="index">
                           <option
-                            x-text="model.label"
+                            x-text="model"
                             class="p-2 text-black"
-                            :value="model.id"
+                            :value="model"
                           ></option>
                         </template>
                       </select>

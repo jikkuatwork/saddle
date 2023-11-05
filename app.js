@@ -1,17 +1,18 @@
 document.addEventListener("alpine:init", () => {
   Alpine.store("app", {
-    selectedModel: "zephyr:latest",
-    models: [
-      { label: "Yarn Mistral", id: "yarn-mistral:latest" },
-      { label: "Zephyr", id: "zephyr:latest" },
-    ],
-    saddle: new Saddle({ service: "ollama", model: "zephyr:latest" }),
+    selectedModel: null,
+    models: [],
+    saddle: new Saddle({ service: "ollama", model: null }),
     isSettingsVisible: false,
     historyContainer: document.querySelector("#history"),
     responseField: document.querySelector("#response-field"),
     inputField: document.querySelector("#input-field"),
     history: [],
-    initialize() {
+    async initialize() {
+      this.models = await this.saddle.list()
+      this.selectedModel = this.models[0]
+      this.saddle = new Saddle({ service: "ollama", model: this.selectedModel })
+
       this.inputField.addEventListener("keydown", event => {
         if (event.keyCode === 13 && this.inputField.value.trim() !== "") {
           this.handleSend()
@@ -23,7 +24,10 @@ document.addEventListener("alpine:init", () => {
     },
     changeModel() {
       console.log(this.selectedModel)
-      this.saddle = new Saddle({ service: "ollama", model: this.selectedModel })
+      this.saddle = new Saddle({
+        service: "ollama",
+        model: this.selectedModel,
+      })
     },
     async handleSend() {
       const input = this.inputField.value
