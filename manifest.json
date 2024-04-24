@@ -11,7 +11,7 @@
   "orientation": "portrait",
   "icons": [
     {
-      "src": "./assets/logo.png",
+      "src": "./assets/logo.jpg",
       "type": "image/png",
       "sizes": "512x512"
     }
