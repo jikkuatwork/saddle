@@ -80,12 +80,14 @@
             <div
               class="language-none flex w-full flex-1 items-center justify-between rounded-lg border border-neutral-200 font-medium text-neutral-600 focus:border-neutral-200 focus:ring-0 focus:ring-transparent"
             >
-              <input
+              <textarea
                 id="input-field"
-                type="text"
                 class="border-r-1 p-3 relative w-full border-0 border-r-[1px] border-neutral-200 bg-transparent align-middle text-[13px] focus:border-neutral-200 focus:outline-none focus:ring-0 focus:ring-transparent"
                 placeholder="Message"
-              />
+                style="resize: none; overflow: hidden"
+                oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px'"
+                rows="1"
+              ></textarea>
 
               <button
                 class="cursor-pointer px-2 py-1 text-neutral-500 hover:text-black focus:outline-none"

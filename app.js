@@ -15,7 +15,10 @@ document.addEventListener("alpine:init", () => {
 
       this.inputField.addEventListener("keydown", event => {
         if (event.keyCode === 13 && this.inputField.value.trim() !== "") {
-          this.handleSend()
+          if (event.shiftKey) {
+          } else {
+            this.handleSend()
+          }
         }
       })
     },
